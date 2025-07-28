@@ -11,7 +11,20 @@ class UserController extends Controller
     public function index()
     {
            // Logic to list users
-           $users = User::all();
+           $users = User::paginate(15);
            return view('admin.users.index', compact('users'));
+    }
+
+    public function create()
+    {
+        // Logic to show the form for creating a new user
+        return view('admin.users.create');
+    }
+
+    public function store(Request $request)
+    {
+         User::create($request->all());
+
+         return redirect()->route('users.index');
     }
 }
