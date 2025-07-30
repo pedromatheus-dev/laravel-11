@@ -5,6 +5,9 @@
 @section('content')
 
     <h1>Editar usuário {{$user->name}}</h1>
+
+    <x-alert/>
+
     <form action="{{ route('users.update', $user->id) }}" method="post">
         @csrf()
         @method('PUT')
