@@ -6,11 +6,8 @@
     <h1>Users</h1>
     <a href="{{ route('users.create') }}">Novo</a>
 
-    @if (session()->has('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
+    <x-alert/>
+    
     <table>
         <thead>
             <tr>

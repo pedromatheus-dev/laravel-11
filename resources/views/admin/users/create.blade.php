@@ -6,14 +6,9 @@
 
     <h1>Novo usuário</h1>
 
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
+    {{-- @include('admin.includes.errors') --}}
+    <x-alert/>
+
     <form action="{{ route('users.store') }}" method="post">
         @csrf
         <input type="text" name="name" id="name" placeholder="Nome" value="{{ old('name') }}">
