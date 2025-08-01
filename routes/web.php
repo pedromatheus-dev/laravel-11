@@ -2,24 +2,28 @@
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Middleware\CheckIfIsAdmin;
 use Illuminate\Support\Facades\Route;
 
-// Rotas mais específicas primeiro
-Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
-Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-Route::delete('/users/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
+Route::middleware(CheckIfIsAdmin::class)->group(function () {
+    // Rotas mais específicas primeiro
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::delete('/users/{user}/destroy', [UserController::class, 'destroy'])->name('users.destroy');
 
-// Rotas com parâmetros
-Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    // Rotas com parâmetros
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
-// Rotas base
-Route::get('/users', [UserController::class, 'index'])->name('users.index');
-Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    // Rotas base
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+});
+
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
